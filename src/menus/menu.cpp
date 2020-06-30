@@ -38,6 +38,9 @@ const int Menu::MENU_NO_MENU = -1;
 const int Menu::kMenuIdLogout = 6;
 const int Menu::kMouseLeftButton = 1;
 const int Menu::kMouseRightButton = 3;
+const int Menu::kMouseMiddleButton = 2;
+const int Menu::kMouseScrollWheelUp = 4;
+const int Menu::kMouseScrollWheelDown = 5;
 
 Menu::Menu(MenuManager * menuManager, int id, int parentId, 
     const char *showAnim, const char *leaveAnim) :
