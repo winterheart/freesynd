@@ -668,7 +668,34 @@ bool GameplayMenu::handleMouseDown(int x, int y, int button, const int modKeys)
     if (paused_)
         return true;
 
-    if (x < 129) {
+    if (button == kMouseMiddleButton) {
+        // Tell the selected agents to panic
+        for (uint8 i = 0; i < AgentManager::kMaxSlot; ++i) {
+            if (selection_.isAgentSelected(i)) {
+                setIPAForAgent(i, IPAStim::Adrenaline, 100);    
+                setIPAForAgent(i, IPAStim::Perception, 100);
+                setIPAForAgent(i, IPAStim::Intelligence, 100);
+            }
+        }
+    } else if (button == kMouseScrollWheelUp) {
+        // Increase IPA levels of the selected agents by 10%
+        for (uint8 i = 0; i < AgentManager::kMaxSlot; ++i) {
+            if (selection_.isAgentSelected(i)) {
+                setIPAForAgent(i, IPAStim::Adrenaline, std::min(mission_->ped(i)->adrenaline_->getAmount()+10, 100));
+                setIPAForAgent(i, IPAStim::Perception, std::min(mission_->ped(i)->perception_->getAmount()+10, 100));
+                setIPAForAgent(i, IPAStim::Intelligence, std::min(mission_->ped(i)->intelligence_->getAmount()+10, 100));
+            }
+        }
+    } else if (button == kMouseScrollWheelDown) {
+        // Decrease IPA levels of the selected agents by 10%
+        for (uint8 i = 0; i < AgentManager::kMaxSlot; ++i) {
+            if (selection_.isAgentSelected(i)) {
+                setIPAForAgent(i, IPAStim::Adrenaline, std::max(mission_->ped(i)->adrenaline_->getAmount()-10, 0));
+                setIPAForAgent(i, IPAStim::Perception, std::max(mission_->ped(i)->perception_->getAmount()-10, 0));
+                setIPAForAgent(i, IPAStim::Intelligence, std::max(mission_->ped(i)->intelligence_->getAmount()-10, 0));
+            }
+        }
+    } else if (x < 129) {
         bool ctrl = false;  // Is control button pressed
         if (modKeys & KMD_CTRL) {
             ctrl = true;
