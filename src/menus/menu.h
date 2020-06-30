@@ -50,6 +50,12 @@ public:
     static const int kMouseLeftButton;
     /*! Id of the mouse right button.*/
     static const int kMouseRightButton;
+    /*! Id of the mouse middle button.*/
+    static const int kMouseMiddleButton;
+    /*! Id of the mouse scroll wheel up.*/
+    static const int kMouseScrollWheelUp;
+    /*! Id of the mouse scroll wheel down.*/
+    static const int kMouseScrollWheelDown;
 
     /*!
         * Menu constructor.
